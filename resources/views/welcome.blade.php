@@ -110,7 +110,6 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="container">
         <div class="row">
             @if($posts->isNotEmpty())
@@ -136,6 +135,7 @@
             @endif
         </div>
     </main>
+    
 
     <!-- Footer -->
     <footer>

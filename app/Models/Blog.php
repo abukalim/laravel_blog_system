@@ -9,12 +9,12 @@ class Blog extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'content', 'image', 'author_id'];
+    // Make sure to include 'user_id' instead of 'author_id'
+    protected $fillable = ['title', 'content', 'image', 'user_id'];
 
-    // Define a relationship to the User model (assuming your User model has a relationship)
+    // Define a relationship to the User model
     public function author()
     {
         return $this->belongsTo(User::class); // Adjust this if your author model is different
     }
 }
-

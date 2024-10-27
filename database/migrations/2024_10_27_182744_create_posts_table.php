@@ -10,16 +10,16 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('content');
-            $table->string('image')->nullable(); // Assuming the image can be nullable
+            $table->string('title'); // Title of the post
+            $table->text('content'); // Content of the post
+            $table->string('image')->nullable(); // Image field can be nullable
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Link to users table
-            $table->timestamps();
+            $table->timestamps(); // Timestamps for created_at and updated_at
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('posts'); // Drops the posts table
     }
 }

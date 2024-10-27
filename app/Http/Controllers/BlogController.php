@@ -103,8 +103,8 @@ class BlogController extends Controller
     }
     public function welcome()
     {
-        $posts = Blog::with('author')->latest()->take(5)->get(); // Fetch latest 5 posts
+        // Fetch all posts instead of just the latest five
+        $posts = Blog::with('author')->latest()->get(); 
         return view('welcome', compact('posts')); // Pass the posts to the welcome view
     }
-    
 }
