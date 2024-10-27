@@ -30,10 +30,6 @@
                         <a class="nav-link" href="#">Contact</a>
                     </li>
                 </ul>
-                <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                    @csrf
-                    <button type="submit" class="btn btn-outline-danger">Logout</button>
-                </form>
             </div>
         </div>
     </nav>
@@ -49,30 +45,35 @@
             <div class="card-body">
                 <h1 class="card-title">{{ $blog->title }}</h1>
                 <p class="card-text">{{ $blog->content }}</p>
-                <p class="card-text"><small class="text-muted">By {{ $blog->author->name }} on {{ $blog->created_at->format('d M Y') }}</small></p>
+                <p class="card-text"><small class="text-muted">By {{ $blog->author ? $blog->author->name : 'Unknown Author' }} on {{ $blog->created_at->format('d M Y') }}</small></p>
                 <hr>
 
                 <h3>Comments</h3>
                 <div id="comments">
-                    {{-- Comments can be looped here --}}
-                    {{-- @foreach ($comments as $comment)
+                    @forelse ($comments as $comment)
                         <div class="border p-2 mb-2">
-                            <strong>{{ $comment->user->name }}</strong>
+                            <strong>{{ $comment->user ? $comment->user->name : 'Anonymous' }}</strong>
                             <p>{{ $comment->content }}</p>
                             <small class="text-muted">{{ $comment->created_at->format('d M Y H:i') }}</small>
                         </div>
-                    @endforeach --}}
+                    @empty
+                        <p>No comments yet. Be the first to comment!</p>
+                    @endforelse
                 </div>
 
                 <!-- Comment Form -->
-                {{-- <form action="{{ route('comments.store', $blog) }}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label for="comment">Leave a comment:</label>
-                        <textarea id="comment" name="content" class="form-control" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit Comment</button>
-                </form> --}}
+                @auth
+                    <form action="{{ route('comments.store', $blog) }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="comment">Leave a comment:</label>
+                            <textarea id="comment" name="content" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2">Submit Comment</button>
+                    </form>
+                @else
+                    <p class="text-muted">You need to be logged in to leave a comment. <a href="{{ route('login') }}">Login</a></p>
+                @endauth
             </div>
         </div>
     </div>

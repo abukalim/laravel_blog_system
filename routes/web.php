@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 
 // Home route
@@ -42,3 +43,4 @@ Route::get('/', [BlogController::class, 'welcome'])->name('home');
 Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
 Route::get('/blogs/create', [BlogController::class, 'create'])->name('blogs.create');
+Route::post('blogs/{blog}/comments', [CommentController::class, 'store'])->name('comments.store');

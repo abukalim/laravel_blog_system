@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
@@ -19,9 +18,9 @@ class BlogController extends Controller
     {
         $validatedData = $this->validateBlog($request);
 
-        // Create the blog
+        // Create the blog and associate it with the authenticated user
         $blog = new Blog($validatedData);
-        $blog->author_id = auth()->id(); // Link the blog to the authenticated user
+        $blog->user_id = auth()->id(); // Use 'user_id' for clarity
 
         // Handle file upload if there is an image
         $this->handleImageUpload($request, $blog);
@@ -34,14 +33,17 @@ class BlogController extends Controller
     // Display a listing of the blogs
     public function index()
     {
-        $blogs = Blog::with('author')->latest()->get();
+        $blogs = Blog::with('user')->latest()->get(); // Use 'user' for clarity
         return view('blogs.index', compact('blogs'));
     }
 
-    // Display a specific blog post
+    // Display a specific blog post with its comments
     public function show(Blog $blog)
     {
-        return view('blogs.show', compact('blog'));
+        // Load comments for the specific blog post
+        $comments = $blog->comments()->with('user')->get();
+
+        return view('blogs.show', compact('blog', 'comments'));
     }
 
     // Show the form for editing the specified blog
@@ -101,10 +103,11 @@ class BlogController extends Controller
             $blog->image = $request->file('image')->store('images', 'public');
         }
     }
+
+    // Fetch all posts for the welcome page
     public function welcome()
     {
-        // Fetch all posts instead of just the latest five
-        $posts = Blog::with('author')->latest()->get(); 
+        $posts = Blog::with('user')->latest()->get(); // Use 'user' for clarity
         return view('welcome', compact('posts')); // Pass the posts to the welcome view
     }
 }
