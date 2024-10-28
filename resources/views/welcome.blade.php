@@ -81,8 +81,6 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('blogs.index') }}">Blog</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
                     @if(Auth::check())
                         <div class="nav-item d-flex gap-2">
                             <a class="btn btn-primary rounded" href="{{ route('dashboard') }}">Dashboard</a>

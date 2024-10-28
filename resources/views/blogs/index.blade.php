@@ -61,7 +61,6 @@
 </head>
 <body>
 
-
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
     <div class="container-fluid">
@@ -115,7 +114,9 @@
                             <h2 class="card-title h5">{{ $blog->title }}</h2>
                             <p class="card-text blog-description">{{ Str::limit($blog->content, 150) }}</p>
                             <p class="card-text text-muted">
-                                <small>By {{ $blog->author->name }} on {{ $blog->created_at->format('F j, Y') }}</small>
+                                <small>
+                                    By {{ $blog->author ? $blog->author->name : 'Unknown' }} on {{ $blog->created_at->format('F j, Y') }}
+                                </small>
                             </p>
                             @if(Auth::check())
                                 <div class="d-flex justify-content-between">
