@@ -6,6 +6,21 @@
     <title>{{ $blog->title }}</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}"> <!-- Adjust path as needed -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Add custom styles here */
+        .container {
+            max-width: 800px; /* Set a maximum width for the container */
+        }
+        .card-img-top {
+            width: 100%; /* Adjust width percentage to 50% */
+            height: auto; /* Maintain aspect ratio */
+            margin: 0 auto; /* Center the image horizontally */
+            display: block; /* Ensure margin auto works */
+        }
+        .card {
+            border: none; /* Optional: remove card border */
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
